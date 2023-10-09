@@ -1,5 +1,4 @@
 package structures;
-import structures.*;
 
 import static java.lang.reflect.Array.newInstance;
 
@@ -58,16 +57,16 @@ public class AssociativeArray<K, V> {
 	 * Create a copy of this AssociativeArray.
 	 */
 	public AssociativeArray<K, V> clone() {
-	// Define a new associative array object.
-	AssociativeArray<K, V> copy = new AssociativeArray<>();
+		// Define a new associative array object.
+		AssociativeArray<K, V> copy = new AssociativeArray<K, V>();
 
-	// 
-	for (int i = 0; i < this.size; i ++) {
-		copy.pairs[i] = this.pairs[i].clone();
-	} // for (each pair in the associative array)
+		// 
+		for (int i = 0; i < this.size(); i ++) {
+			copy.set(this.pairs[i].key, this.pairs[i].value);
+		} // for (each pair in the associative array)
 
-	// 
-	return copy;
+		// 
+		return copy;
 	} // clone()
 
 	/**
@@ -75,21 +74,18 @@ public class AssociativeArray<K, V> {
 	 */
 	public String toString() {
 		// Define a string to construct the final string with.
-	String returnString = "";
+		String returnString = "";
 
-	// Iterate throughout the associative array.
-	for (int i = 0; i < this.size; i ++) {
-		// Check if the 
-		if (pairs[i] == null) continue;
+		// Iterate throughout the associative array.
+		for (int i = 0; i < this.size; i ++) {
+			// Update the return string with the new pair's key and value.
+			returnString += (i != this.size - 1)
+			? String.format(" %s: %s,", pairs[i].key, pairs[i].value)
+			: String.format(" %s: %s ", pairs[i].key, pairs[i].value);
+		} // for (each pair in the associative array)
 		
-		// Update the return string with the new pair's key and value.
-		returnString += (i != 0)
-		? String.format(", %s: %s", pairs[i].key, pairs[i].value)
-		: String.format("%s: %s", pairs[i].key, pairs[i].value);
-	} // for (each pair in the associative array)
-	
-	// Return the resulting string from iterating through the array.
-	return "{ " + returnString + " }";
+		// Return the resulting string from iterating through the array.
+		return "{" + returnString + "}";
 	} // toString()
 
 	// +----------------+-------------------------------------------------
@@ -102,21 +98,24 @@ public class AssociativeArray<K, V> {
 	 */
 	public void set(K key, V value) {
 		// Check if the associative array has a key to set
-	try {
-		// Find and update the key value pair.
-		pairs[find(key)].value = value;
-	} // if (associative array contains key)
+		try {
+			// Find and update the key value pair.
+			pairs[find(key)].value = value;
+		} // if (associative array contains key)
 
-	// 
-	catch (KeyNotFoundException e) {
-		// Check if the associative array has space for a new pair.
-		if (this.size < this.pairs.length) {
-		// Set a new key value pair at the end of the array.
-		pairs[this.size] = new KVPair<K, V>(key, value);
-		// Increment and update the size of the array.
-		this.size ++;
-		} // else if (associative array is not full)
-	} // catch (key not found in associative array)
+		// 
+		catch (KeyNotFoundException e) {
+			// Check if the associative array has is full.
+			if (this.size >= this.pairs.length) {
+				this.expand(); 
+			} // if (associative array is full)
+				
+			// Set a new key value pair at the end of the array.
+			pairs[this.size] = new KVPair<K, V>(key, value);
+			// Increment and update the size of the array.
+			this.size ++;
+
+		} // catch (key not found in associative array)
 	} // set(K,V)
 
 	/**
@@ -127,14 +126,14 @@ public class AssociativeArray<K, V> {
 	 *     array.
 	 */
 	public V get(K key) throws KeyNotFoundException {
-	// Check that the key exists in the associative array.
-	if (hasKey(key)) {
-		// Check if the current pair is the target key.
-		return pairs[find(key)].value;
-	} // if (associative array contains K key)
+		// Check that the key exists in the associative array.
+		if (hasKey(key)) {
+			// Check if the current pair is the target key.
+			return pairs[find(key)].value;
+		} // if (associative array contains K key)
 	
-	// Otherwise, throw a KeyNotFoundException
-	else throw new KeyNotFoundException();
+		// Otherwise, throw a KeyNotFoundException
+		else throw new KeyNotFoundException();
 	} // get(K)
 
 	/**
@@ -142,16 +141,16 @@ public class AssociativeArray<K, V> {
 	 */
 	public boolean hasKey(K key) {
 		// Define a boolean showing the existence of the target key.
-	boolean containsKey = false;
+		boolean containsKey = false;
 	
-	// Iterate througout the associative array.
-	for (int i = 0; i < this.size; i ++) {
-		// Check if the current pair is the target key
-		if (pairs[i].key == key) containsKey = true;
-	} // for (each pair in the associative array)
+		// Iterate througout the associative array.
+		for (int i = 0; i < this.size; i ++) {
+			// Check if the current pair is the target key
+			if (pairs[i].key.equals(key)) containsKey = true;
+		} // for (each pair in the associative array)
 
-	// Return the result of searching the array for K key
-	return containsKey;
+		// Return the result of searching the array for K key
+		return containsKey;
 	} // hasKey(K)
 
 	/**
@@ -160,23 +159,21 @@ public class AssociativeArray<K, V> {
 	 * in the associative array, does nothing.
 	 */
 	public void remove(K key) {
-	// Check if the associative array has a key to remove.
-	if (hasKey(key)) {
-		// Iterate throughout the assocative array.
-		for (int i = 0; i < this.size; i ++) {
-		// Check if the current pair is the target key
-		if (pairs[i].key == key) {
-			// Remove the key/value pair associated with the key.
-			pairs[i] = null;
-			// Shift the rest of the key/value pairs to the left.
-			for (int j = i; j < this.size - 1; j ++) {
-			pairs[j] = pairs[j + 1];
-			} // for (the rest of the pairs in the array)
-			// Decrement and update the size of the array.
-			this.size --;
-		} // if (target key/value pair)
-		} // for (each pair in the associative array)
-	} // if (AssociativeArray contains key)
+		// Check if the associative array has a key to remove.
+		if (hasKey(key)) {
+			try {
+				int i = find(key);
+				pairs[i] = null;
+
+				// Shift the rest of the key/value pairs to the left.
+				for (int j = i; j < this.size - 1; j ++) {
+					pairs[j] = pairs[j + 1];
+				} // for (the rest of the pairs in the array)
+				// Decrement and update the size of the array.
+				this.size --;
+
+			} catch (Exception e) { /** DO NOTHING*/ }
+		} // if (AssociativeArray contains key)
 	} // remove(K)
 
 	/**
@@ -209,7 +206,7 @@ public class AssociativeArray<K, V> {
 	// Iterate througout the associative array.
 	for (int i = 0; i < this.size; i ++) {
 		// Check if the current pair is the target key.
-		if (pairs[i].key == key) return i;
+		if (pairs[i].key.equals(key)) return i;
 	} // for (each pair in the associative array)
 
 	// Else the key is not in the array, so throw an exception.

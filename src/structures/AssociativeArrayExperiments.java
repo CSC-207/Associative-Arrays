@@ -1,10 +1,12 @@
 package structures;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.PrintWriter;
 import java.math.BigInteger;
 
-import structures.AssociativeArray;
-import structures.KeyNotFoundException;
+//import structures.AssociativeArray;
+//import structures.KeyNotFoundException;
 
 /**
  * Experiments with our AssociativeArray class.
@@ -64,6 +66,8 @@ public class AssociativeArrayExperiments {
 
 		AssociativeArray<String,String> s2s2 = s2s.clone();
 		System.out.println(s2s == s2s2);
+
+		System.out.println(s2s);
 	} // expreimentStringsToStrings
 
 	/**
@@ -87,6 +91,7 @@ public class AssociativeArrayExperiments {
 		// Then remove some of them
 		for (int i = 1; i < 11; i += 2) {
 			b2b.remove(BigInteger.valueOf(i));
+		}
 
 		// Then see what happens when we get them
 		for (int i = 0; i < 11; i++) {
@@ -102,6 +107,57 @@ public class AssociativeArrayExperiments {
 		for (int i = 0; i < 11; i++) {
 			try { b2b.get(BigInteger.valueOf(i)); } catch (Exception e) { }
 		} // for
+
+		System.out.println(b2b);
+
+		AssociativeArray<BigInteger, BigInteger> copy = b2b.clone();
+		System.out.println(copy);
+
+		// Then see what happens when we get them
+		for (int i = 0; i < 11; i++) {
+			try { System.out.println(copy.get(BigInteger.valueOf(i))); } catch (Exception e) { }
+		} // for
+
+
+		AssociativeArray<Double, String> floatTest = new ReportingAssociativeArray<Double, String>("floatTest", pen);
+    	floatTest.set(0.1, "a");
+		floatTest.hasKey(0.1);
+		floatTest.set(0.1, "b");
+		floatTest.hasKey(0.1);
+
+		System.out.println(floatTest.size());
+
+		System.out.println(floatTest);
+
+
+
+		AssociativeArray<String, String> arr = new AssociativeArray<String, String>();
+
+		// empty array should have size 0
+		System.out.println(arr.size());
+
+		// array with one element should have size 1
+		arr.set("0", "value");
+		assertEquals(1, arr.size());
+
+		// the default size is 16, so a full array should have size 16
+		for(int i = 0; i < 16; i++){
+		arr.set("" + i, "value");
+		} // for
+		System.out.println(arr.size());
+		System.out.println(arr);
+
+		arr.remove("2");
+    	arr.remove("4");
+
+		System.out.println(arr);
+
+		try {
+			arr.get(null);
+		} catch (Exception e) {
+			System.out.println("uhoh");
+		}
+
 	} // experimentBigIntToBigInt
 
 	// +---------+-----------------------------------------------------
