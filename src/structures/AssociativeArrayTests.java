@@ -350,15 +350,15 @@ try{
    */
   @Test
   public void kevinJohansonTest1() {
-	    AssociativeArray<String, String> tester = new AssociativeArray<String, String>(); 	    // builds the array
-	    
-	    tester.set("10", "5");
-	    tester.set("10", "8");
-	    try {
-	    	assertEquals("8", tester.get("10"));
-	    } catch (Exception e) {
-	    	fail("array did not overwite the value");
-	    } // catch()
+      AssociativeArray<String, String> tester = new AssociativeArray<String, String>(); 	    // builds the array
+      
+      tester.set("10", "5");
+      tester.set("10", "8");
+      try {
+        assertEquals("8", tester.get("10"));
+      } catch (Exception e) {
+        fail("array did not overwite the value");
+      } // catch()
   }// kevinJohansonTest1()
   
   /**
@@ -367,23 +367,23 @@ try{
    */
   @Test
   public void kevinJohansonTest2() {
-	    AssociativeArray<String, String> tester = new AssociativeArray<String, String>(); 	    // builds the array
-	    
-	    tester.set("10", "5");
-	    tester.set("11", "8");
-	    try {
-	    	assertEquals(2, tester.size());
-	    } catch (Exception e) {
-	    	fail("array does not have the right size");
-	    } // catch()
-	    
-	    tester.remove("10");
-	    
-	    try {
-	    	assertEquals(1, tester.size());
-	    } catch (Exception e) {
-	    	fail("remove did not subtract size");
-	    } // catch()
+      AssociativeArray<String, String> tester = new AssociativeArray<String, String>(); 	    // builds the array
+      
+      tester.set("10", "5");
+      tester.set("11", "8");
+      try {
+        assertEquals(2, tester.size());
+      } catch (Exception e) {
+        fail("array does not have the right size");
+      } // catch()
+      
+      tester.remove("10");
+      
+      try {
+        assertEquals(1, tester.size());
+      } catch (Exception e) {
+        fail("remove did not subtract size");
+      } // catch()
   }// kevinJohansonTest2()
   
   /**
@@ -392,39 +392,39 @@ try{
    */
   @Test
   public void kevinJohansonEdge1() {
-	    AssociativeArray<String, String> tester = new AssociativeArray<String, String>(); 	    // builds the array
-	    
-	    tester.set("1", "5");
-	    tester.set("2", "8");
-	    tester.set("3", "5");
-	    tester.set("4", "8");
-	    tester.set("5", "5");
-	    tester.set("6", "8");
-	    tester.set("7", "5");
-	    tester.set("8", "8");		// sets the array to its default full
-	    tester.set("9", "5");
-	    tester.set("10", "8");
-	    tester.set("11", "5");
-	    tester.set("12", "8");
-	    tester.set("13", "8");
-	    tester.set("14", "5");
-	    tester.set("15", "8");
-	    tester.set("16", "5"); 
-	    
-	    
-	    try {
-	    	assertEquals(16, tester.pairs.length);
-	    } catch (Exception e) {
-	    	fail("array expanded when it shouldn't have");
-	    } // catch()
-	    
-	    tester.set("17", "100"); // should automatically expand the array
-	    
-	    try {
-	    	assertEquals(32 , tester.pairs.length);
-	    } catch (Exception e) {
-	    	fail("array did not expand");
-	    } // catch()	    
+      AssociativeArray<String, String> tester = new AssociativeArray<String, String>(); 	    // builds the array
+      
+      tester.set("1", "5");
+      tester.set("2", "8");
+      tester.set("3", "5");
+      tester.set("4", "8");
+      tester.set("5", "5");
+      tester.set("6", "8");
+      tester.set("7", "5");
+      tester.set("8", "8");		// sets the array to its default full
+      tester.set("9", "5");
+      tester.set("10", "8");
+      tester.set("11", "5");
+      tester.set("12", "8");
+      tester.set("13", "8");
+      tester.set("14", "5");
+      tester.set("15", "8");
+      tester.set("16", "5"); 
+      
+      
+      try {
+        assertEquals(16, tester.pairs.length);
+      } catch (Exception e) {
+        fail("array expanded when it shouldn't have");
+      } // catch()
+      
+      tester.set("17", "100"); // should automatically expand the array
+      
+      try {
+        assertEquals(32 , tester.pairs.length);
+      } catch (Exception e) {
+        fail("array did not expand");
+      } // catch()	    
   } // kevinJohansonEdge1()
   
   // +----------------------+----------------------------------------
@@ -1494,10 +1494,10 @@ try{
       fail("Change to original changes clone.");
     }
     try {
-	arr2.get(3);
-	fail("Did not throw an exception. Change to original changes clone.:)");
+  arr2.get(3);
+  fail("Did not throw an exception. Change to original changes clone.:)");
     } catch (Exception e) {
-	// do nothing
+  // do nothing
     }
   } // audreyTrinhTest01()
 

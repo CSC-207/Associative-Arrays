@@ -5,48 +5,48 @@ package structures;
  * classes will access fields directly.
  */
 class KVPair<K,V> {
-	// +--------+---------------------------------------------------------
-	// | Fields |
-	// +--------+---------------------------------------------------------
+  // +--------+---------------------------------------------------------
+  // | Fields |
+  // +--------+---------------------------------------------------------
 
-	/**
-	 * The key.
-	 */
-	K key;
+  /**
+   * The key.
+   */
+  K key;
 
-	/**
-	 * The value.
-	 */
-	V value;
+  /**
+   * The value.
+   */
+  V value;
 
-	// +--------------+---------------------------------------------------
-	// | Constructors |
-	// +--------------+---------------------------------------------------
+  // +--------------+---------------------------------------------------
+  // | Constructors |
+  // +--------------+---------------------------------------------------
 
-	/**
-	 * Create an empty key/value pair.
-	 */
-	KVPair() {
-		this(null, null);
-	} // KVPair()
+  /**
+   * Create an empty key/value pair.
+   */
+  KVPair() {
+    this(null, null);
+  } // KVPair()
 
-	/**
-	 * Create a new key/value pair.
-	 */
-	KVPair(K key, V value) {
-		this.key = key;
-		this.value = value;
-	} // KVPair(K,V)
+  /**
+   * Create a new key/value pair.
+   */
+  KVPair(K key, V value) {
+    this.key = key;
+    this.value = value;
+  } // KVPair(K,V)
 
-	// +------------------+-----------------------------------------------
-	// | Standard methods |
-	// +------------------+-----------------------------------------------
+  // +------------------+-----------------------------------------------
+  // | Standard methods |
+  // +------------------+-----------------------------------------------
 
-	public KVPair<K,V> clone() {
-		return new KVPair<K,V>(this.key, this.value);
-	} // clone()
+  public KVPair<K,V> clone() {
+    return new KVPair<K,V>(this.key, this.value);
+  } // clone()
 
-	public String toString() {
-		return "{ " + this.key.toString() + " : " + this.value.toString() + " }";
-	} // toString()
+  public String toString() {
+    return "{ " + this.key.toString() + " : " + this.value.toString() + " }";
+  } // toString()
 } // class KVPair
